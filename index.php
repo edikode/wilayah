@@ -28,7 +28,7 @@ copyright (c) 2017-2022 by cahya dsn; cahyadsn@gmail.com
 //--- Database configuration
 $dbhost ='localhost';
 $dbuser ='root';
-$dbpass ='';
+$dbpass ='root';
 $dbname ='wilayah';
 $dbdsn = "mysql:dbname={$dbname};host={$dbhost}";
 try {
@@ -43,7 +43,7 @@ $wil=array(
 );
 if (isset($_GET['id']) && !empty($_GET['id'])){
 	$n=strlen($_GET['id']);
-	$query = $db->prepare("SELECT * FROM wilayah WHERE LEFT(kode,:n)=:id AND CHAR_LENGTH(kode)=:m ORDER BY nama");
+	$query = $db->prepare("SELECT * FROM wilayah_2022 WHERE LEFT(kode,:n)=:id AND CHAR_LENGTH(kode)=:m ORDER BY nama");
 	$query->execute(array(':n'=>$n,':id'=>$_GET['id'],':m'=>$wil[$n][0]));
 	echo"<option value=''>Pilih {$wil[$n][1]}</option>";
 	while($d = $query->fetchObject())
@@ -98,7 +98,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])){
 				<select id="prov" onchange="ajax(this.value)">
 					<option value="">Provinsi</option>
 					<?php 
-					$query=$db->prepare("SELECT kode,nama FROM wilayah WHERE CHAR_LENGTH(kode)=2 ORDER BY nama");
+					$query=$db->prepare("SELECT kode,nama FROM wilayah_2022 WHERE CHAR_LENGTH(kode)=2 ORDER BY nama");
 					$query->execute();
 					while ($data=$query->fetchObject())
 						echo '<option value="'.$data->kode.'">'.$data->nama.'</option>';
